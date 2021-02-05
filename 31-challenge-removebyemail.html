@@ -1,0 +1,113 @@
+
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <div id = 'root'>
+
+        </div>
+        <script src = "C:\Users\Niranjan\jan-2020-mern\reactjs\js\react.development.js"></script>
+
+        <script src = "C:\Users\Niranjan\jan-2020-mern\reactjs\js\react-dom.development.js"></script>
+
+        <script src = "C:\Users\Niranjan\jan-2020-mern\reactjs\js\babel.js"></script>
+
+        <script type ="text/babel"> 
+
+        
+            const rootHandle = document.getElementById('root')
+            class Users extends React.Component{
+                constructor() {
+                    super()
+                    this.state = {
+                     users : [
+                        { id: 1, name: 'user1', email: 'user1@gmail.com'},
+                        { id: 2, name: 'user2', email: 'user2@gmail.com' },
+                        { id: 3, name: 'user3', email: 'user3@gmail.com' },
+                        { id: 4, name: 'user4', email: 'user4@gmail.com' }
+                       ] ,
+                      removeEmail : '' 
+                    }
+                }
+
+               
+
+                handleonChange = (e)=> {
+                   
+                    const removeEmail = e.target.value
+                    this.setState({removeEmail})
+                   
+                }  
+
+                handleSubmit =(e)=> {
+                    e.preventDefault()                   
+                     this.setState(function(prevState){
+                       return {
+                            users : prevState.users.filter((user)=> user.email != prevState.removeEmail),
+                      removeEmail : ''
+                       }
+                    })
+
+                }
+
+
+                render(){
+                    return(
+                    <div>
+                        <h2> Listing users - {this.state.users.length}</h2>
+                        <table border = "1">
+                           <thead > 
+                               <tr>  
+                                  <th>#</th>
+                                  <th>Name</th>
+                                  <th> Email</th>
+                               </tr>
+                           </thead>
+
+                           <tbody>
+                                 {
+                                    
+                                    this.state.users.map((user)=>{
+                                         return (
+                                             <tr key={user.id}>
+                                                 <td> {user.id}</td>
+                                                 <td> {user.name}</td>
+                                                 <td> {user.email}</td>
+                                             
+                                             </tr>
+                                         )
+                                    })  
+                                     
+                                 }
+                           
+                           </tbody>
+                        </table>
+  
+                        <br/>
+                        <h2> Form</h2>
+                        <form onSubmit = {this.handleSubmit}>
+                        <input type="text"  value ={this.state.removeEmail}  onChange={this.handleonChange} placeholder="enter the email" />
+                        <input type="submit" value = "submit" />
+                        </form>
+
+                   </div> 
+                   )
+                }
+            }
+        
+            ReactDOM.render(<Users/>,rootHandle)
+
+
+
+           
+        </script>
+
+    </body>
+</html>
+
+
+
+
+
+
